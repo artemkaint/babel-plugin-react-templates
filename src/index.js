@@ -62,7 +62,7 @@ module.exports = function ({types: t}) {
             let args = node_path.node.arguments
             if (args.length && t.isStringLiteral(args[0])){
               var ext = plugin.opts.ext || '.rt.html',
-                reg_ext = new RegExp(ext + '$'),
+                reg_ext = new RegExp(escapeRegExp(ext) + '$'),
                 relative_path = args[0].value;
               if (reg_ext.test(relative_path)){
                 let compiled_path = fnCompiledTemplate(node_path, plugin, {
