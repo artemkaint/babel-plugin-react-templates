@@ -5,6 +5,7 @@ import reactTemplates from 'react-templates/src/reactTemplates';
 import url  from 'url';
 import fs from 'fs';
 import path from 'path';
+import escapeRegExp from 'escape-string-regexp';
 
 let DEFAULT_RT_OPTIONS = {
   targetVersion: '0.14.0',
@@ -39,7 +40,7 @@ module.exports = function ({types: t}) {
         enter(node_path, plugin) {
           let relative_path = node_path.node.source.value,
             ext = plugin.opts.ext || '.rt.html',
-            reg_ext = new RegExp(ext + '$');
+            reg_ext = new RegExp(escapeRegExp(ext) + '$');
           if (reg_ext.test(relative_path)){
             let compiled_path = fnCompiledTemplate(node_path, plugin, {
               relative_path: relative_path,
